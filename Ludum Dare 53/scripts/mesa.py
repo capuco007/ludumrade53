@@ -15,7 +15,7 @@ def start(cont):
 def timePedir(cont):
     own = cont.owner
     if own['pedirReload'] > 0:
-        own['pedirReload'] -=10
+        own['pedirReload'] -=15
     else:
         own['pedirReload'] = 100
         
@@ -73,7 +73,7 @@ def update(cont):
                     own['mesh_icon'][0].replaceMesh('nada')
                     own['timePedir'] = 80
                     if not 'coin_efect' in scene:
-                        scene.addObject('coin_efect',own,100)
+                        scene.addObject('coin_efect',own,300)
                         bge.logic.sendMessage('win')
 
                    
@@ -90,7 +90,7 @@ def update(cont):
     if own['timePedir'] <= 2 and own['pedirAlgo']:
         if gd['game']['reputation'] >0 and own['perdeu'] == False:
             own['perdeu'] = True
-            scene.addObject('bravo_effect',own,100)
+            scene.addObject('bravo_effect',own,300)
             gd['game']['reputation']-= gd['game']['itemReputation'][own['pedirAlgo']]
             bge.logic.sendMessage('lose')
        
