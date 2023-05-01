@@ -23,9 +23,9 @@ def update(cont):
 def getItem(cont):
     own = cont.owner
     Collision = cont.sensors['Collision']
-
+    scene = own.scene
     if Collision.positive:
-        print(gd['game']['reputation'])
+        #print(gd['game']['reputation'])
         for o in Collision.hitObjectList:
             if 'getItem' in o:
                 if len(own['itemServer'])< own['limite'] and o.groupObject['ativa']:
@@ -33,6 +33,8 @@ def getItem(cont):
                     if o['reload'] == 100:
                         if not o.groupObject['tipo'] in gd['game']['itemServer']:
                             own['itemServer'].append(o.groupObject['tipo'])
+                            if o.groupObject['tipo'] in scene.objects:
+                                scene.objects[o.groupObject['tipo']].endObject()
                             bge.logic.sendMessage('getItem')
                             if o['reload'] == 100:
                                 o['reload'] = 0
@@ -62,3 +64,7 @@ def movement(cont):
     if char.onGround:
         if tc[bge.events.SPACEKEY].activated or ms[bge.events.LEFTMOUSE].activated:
             char.jump()
+    dir = char.walkDirection
+
+    if dir.legth != 0:
+        print(dir)
